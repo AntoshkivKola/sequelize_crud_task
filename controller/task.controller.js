@@ -39,6 +39,27 @@ module.exports.getUserTasks = async (req, res, next) => {
   }
 };
 
+module.exports.getAllTasks = async (req, res, next) => {
+  try {
+    
+    const { pagination = {} } = req;
+    const tasks = await Task.findAll({
+      ...pagination,
+    });
+
+    if (!tasks.length) {
+      return next(createError(404, 'Tasks not found'));
+    }
+
+    res.status(200).send({
+      data: tasks,
+    });
+
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports.updateTask = async (req, res, next) => {
   try {
     const {

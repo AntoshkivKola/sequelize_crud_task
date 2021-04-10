@@ -5,6 +5,7 @@ const { checkUser } = require('../middlewares/user.mw');
 
 const taskRouter = Router();
 
+taskRouter.get('/', paginate, TaskController.getAllTasks);
 taskRouter.get('/:id', paginate, checkUser, TaskController.getUserTasks);
 taskRouter.post('/:id', checkUser, TaskController.createTask);
 
